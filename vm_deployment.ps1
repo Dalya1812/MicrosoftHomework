@@ -4,7 +4,7 @@ $resourceGroupName = "NewResourceGroup"
 $sku = "Standard_LRS"
 
 
-function Create-VM{
+function CreateVM{
     param (
          [string]$resourceGroupName,
        [string]$templateFilePath,
