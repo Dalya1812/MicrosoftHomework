@@ -33,7 +33,7 @@
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2022-03-01",
-      "name": "myVM",
+      "name": "mVM",
       "location": "[resourceGroup().location]",
       "dependsOn": [
         "[resourceId('Microsoft.Network/networkInterfaces', 'myVMNic')]"

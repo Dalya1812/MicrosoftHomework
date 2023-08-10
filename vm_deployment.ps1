@@ -4,20 +4,18 @@ $resourceGroupName = "NewResourceGroup"
 $sku = "Standard_LRS"
 
 
-function Create-ResourceGroup{
+function Create-VM{
     param (
-        [string]$resourceGroupName,
-        [string]$location,
-        [string]$sku
+         [string]$resourceGroupName,
+       [string]$templateFilePath,
+       [string]$vmName
+
     )
     $templateFilePath ="./vm_template.json"
-    $deployment =New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -vmName "myNewVM"
-    $deploymentName = $deployment.DeploymentName
-    $deployment.ProvisioningState
-    $deployment.Error
+    $vm =New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -vmName "mVM"
+    $vm.ProvisioningState
+    $vm.Error
 }
-
-
 
 
 
@@ -32,8 +30,10 @@ function Create-StorageAccount {
     New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName $sku
 }
 
+#Create-StorageAccount -resourceGroupName $resourceGroupName -location $location -sku $sku
 
 
-Create-StorageAccount -resourceGroupName $resourceGroupName -location $location -sku $sku
+
+
 
 
