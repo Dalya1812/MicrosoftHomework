@@ -1,11 +1,20 @@
 Connect-AzAccount
-$resourceGroupName = "MyResourceGroup"
+
+#$templateFilePath= "./vm_template.json"
+#$deployment =New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -vmName "myNewVM"
+#$deploymentName = $deployment.DeploymentName
+#$deployment.ProvisioningState
+#$deployment.Error
+
+
+$templateFilePath= "./storage_account_template.json"
+$storageAccountName = "mystor5435345"
+$resourceGroupName = "NewResourceGroup"
 $location = "East US"
+$sku = "Standard_LRS"
 
-$vmName = "MyVm"
-$vmSize = "Standard_DS2_v2"
-$templateFilePath = "./vm_template.json"
+New-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $storageAccountName -Location $location -SkuName $sku
+$deployment.ProvisioningState
+$deployment.Error
 
-New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath  
-$vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
-$vm
+

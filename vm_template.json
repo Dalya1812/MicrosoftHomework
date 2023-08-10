@@ -1,20 +1,51 @@
 {
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
+  "variables": {
+    "subnetRef": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets', 'myVNet', 'mySubnet')]"
+  },
+  "parameters": {
+    "vmName": {
+      "type": "string",
+      "defaultValue": "myVM"
+    }
+  },
   "resources": [
+    {
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2021-02-01",
+      "name": "myVMNic",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "subnet": {
+                "id": "[variables('subnetRef')]"
+              },
+              "privateIPAllocationMethod": "Dynamic"
+            }
+          }
+        ]
+      }
+    },
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2022-03-01",
       "name": "myVM",
       "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces', 'myVMNic')]"
+      ],
       "properties": {
         "hardwareProfile": {
-          "vmSize": "Standard_DS1_v2"
+          "vmSize": "Standard_DS2_v2"
         },
         "osProfile": {
-          "computerName": "myVM",
-          "adminUsername": "azureuser",
-          "adminPassword": "P@ssw0rd"
+          "computerName": "[parameters('vmName')]",
+          "adminUsername": "yourAdminUsername",
+          "adminPassword": "Password!34"
         },
         "storageProfile": {
           "imageReference": {
@@ -22,6 +53,14 @@
             "offer": "WindowsServer",
             "sku": "2019-Datacenter",
             "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "osType": "Windows",
+            "caching": "ReadWrite",
+            "managedDisk": {
+              "storageAccountType": "Standard_LRS"
+            }
           }
         },
         "networkProfile": {
