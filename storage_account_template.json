@@ -5,10 +5,25 @@
     {
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2021-04-01",
-      "name": "[variables('storageAccountName')]",
+      "name": "[variables('sourceStorageAccountName')]",
       "location": "[resourceGroup().location]",
       "sku": {
-        "name": "Standard_LRS",  // Specify the desired SKU
+        "name": "Standard_LRS",
+        "tier": "Standard"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "accessTier": "Hot",
+        "supportsHttpsTrafficOnly": true
+      }
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-04-01",
+      "name": "[variables('targetStorageAccountName')]",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "Standard_LRS",
         "tier": "Standard"
       },
       "kind": "StorageV2",
@@ -19,12 +34,7 @@
     }
   ],
   "variables": {
-    "storageAccountName": "mystor5435345"  
-  },
-  "outputs": {
-    "storageAccountConnectionString": {
-      "type": "string",
-      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').keys[0].value)]"
-    }
+    "sourceStorageAccountName": "sourcestorageaccount",
+    "targetStorageAccountName": "targetstorageaccount"
   }
 }
