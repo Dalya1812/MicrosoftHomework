@@ -1,0 +1,45 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "adminUsername": {
+            "value": "dalia" 
+        },
+        "adminPassword": {
+            "value": "3443483583284Abb!" 
+        },
+        "dnsLabelPrefix": {
+            "value": "" 
+        },
+        "publicIpName": {
+            "value": "myPublicIP"
+        },
+        "publicIPAllocationMethod": {
+            "value": "Dynamic"
+        },
+        "publicIpSku": {
+            "value": "Basic"
+        },
+        "OSVersion": {
+            "value": "2022-datacenter-azure-edition"
+        },
+        "vmSize": {
+            "value": "Standard_D2s_v5"
+        },
+        "location": {
+            "value": "east us" 
+        },
+        "vmName": {
+            "value": "simple-vm"
+        },
+        "securityType": {
+            "value": "TrustedLaunch"
+        },
+            "virtualNetworkName": {
+            "value": "vNet"
+        },
+                "subnetName": {
+            "value": "newSubnet"
+        }
+    }
+}

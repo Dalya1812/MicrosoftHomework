@@ -1,22 +1,20 @@
 Connect-AzAccount
 $location = "East US"
-$resourceGroupName = "NewResourceGroup"
+$resourceGroupName = "ResourceG"
 $sku = "Standard_LRS"
 
 
 function CreateVM{
     param (
-         [string]$resourceGroupName,
-       [string]$templateFilePath,
+        [string]$resourceGroupName,
        [string]$vmName
 
     )
-    $templateFilePath ="./vm_template.json"
+    $templateFilePath ="/Users/home/Desktop/microsoft/MicrosoftHomework/Arm Templates/vm_template.json"
     $vm =New-AzResourceGroupDeployment -ResourceGroupName $resourceGroupName -TemplateFile $templateFilePath -vmName "mVM"
     $vm.ProvisioningState
     $vm.Error
 }
-
 
 
 function Create-StorageAccount {
